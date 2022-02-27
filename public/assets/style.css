@@ -1,0 +1,53 @@
+:root{
+    --primary:#7928ca !important;
+    --bg-color:#f8f9fa!important;
+    --white:#ffffff;
+}
+body{
+    background-color: var(--bg-color);
+}
+.link{
+    text-decoration: none;
+    color: black;
+}
+.navbar-links .active .MuiListItem-root{
+    background-color: #00000013;
+}
+.navbar-links .active .css-1eq61hc-MuiButtonBase-root-MuiListItem-root:hover{
+    background-color: #00000013 !important;
+}
+.css-1eq61hc-MuiButtonBase-root-MuiListItem-root:hover {
+    background-color: rgb(0 0 0 / 0%) !important;
+}
+
+/* Scrollbar */
+
+/* width */
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper::-webkit-scrollbar {
+    width: 0px;
+  }
+  .MuiDrawer-paper:hover::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+    visibility: hidden;
+  }
+   
+  /* Handle */
+  .css-12i7wg6-MuiPaper-root-MuiDrawer-paper::-webkit-scrollbar-thumb {
+    background: var(--primary); 
+    border-radius: 10px;
+    visibility: hidden;
+  }
+  .MuiDrawer-paper:hover::-webkit-scrollbar-thumb{
+    visibility: visible;
+}  
+  /* Handle on hover */
+  .css-12i7wg6-MuiPaper-root-MuiDrawer-paper::-webkit-scrollbar-thumb:hover {
+    background: var(--primary); 
+  }
