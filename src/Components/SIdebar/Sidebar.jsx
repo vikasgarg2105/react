@@ -228,6 +228,7 @@ export default function Sidebar(props) {
                   <ListItemButton
                     onClick={props.handleClick}
                     sx={{ minWidth: "250px", my: 1 }}
+                    key={val.id}
                   >
                     <ListItemIcon sx={{ minWidth: "50px" }}>
                       <Box
@@ -254,7 +255,7 @@ export default function Sidebar(props) {
                   <Collapse in={props.open} timeout="auto" unmountOnExit>
                     {val.submenu.submenuitem.map((value, index) => (
                       <>
-                        <Box component="div" disablePadding>
+                        <Box component="div" key={value.id} disablePadding>
                           <NavLink
                             to={value.url}
                             className="link"
