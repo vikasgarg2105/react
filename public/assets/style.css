@@ -1,7 +1,10 @@
 :root{
-    --primary:#7928ca !important;
+    --primary:#4ECCA3 !important;
+    --secondary:#001D38 !important;
+    --primary-gradient:linear-gradient(156.51deg, #001D38 30.3%, #001D38 30.3%, #4ECCA3 150.73%);
     --bg-color:#f8f9fa!important;
     --white:#ffffff;
+    --black:#000000 !important
 }
 body{
     background-color: var(--bg-color);
@@ -10,7 +13,7 @@ body{
     text-decoration: none;
     color: black;
 }
-.navbar-links .active .MuiListItem-root{
+.navbar-links .active .MuiListItemButton-root{
     background-color: #00000013;
 }
 .navbar-links .active .css-1eq61hc-MuiButtonBase-root-MuiListItem-root:hover{
@@ -19,7 +22,38 @@ body{
 .css-1eq61hc-MuiButtonBase-root-MuiListItem-root:hover {
     background-color: rgb(0 0 0 / 0%) !important;
 }
+.img-fluid{
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+}
 
+a{
+  text-decoration: none;
+}
+/* Login Page */
+.login-page a{
+  color: var(--primary);
+}
+.swiper-pagination-bullet-active {
+  background: var(--primary) !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+.swiper-pagination-bullet {
+  width: 16px !important;
+  height: 16px !important;
+  background-color: #ffffffc4 !important;
+}
+.Mui-focused{
+  color: var(--primary) !important;
+}
+.Mui-focused .MuiOutlinedInput-notchedOutline{
+  border-color: var(--primary) !important;
+}
+.css-1pw38g8-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: var(--secondary) !important;
+}
 /* Scrollbar */
 
 /* width */

@@ -7,20 +7,26 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 export default function Team() {
-  const[toggle,setToggle]=useState(false)
+   const[toggle,setToggle]=useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
   const showEvent =()=>{
     if(toggle!==false){
-      setToggle(false)
+      setToggle(false);
     }
     else{
-      setToggle(true)
+      setToggle(true);
+      setOpen(false);
     }
   }
   return (
     <>
-      <Navbar toggle={toggle} showEvent={showEvent} />
+      <Navbar toggle={Boolean(toggle)} showEvent={showEvent} />
       <Box sx={{display:"flex", marginTop:"64px"}}>
-        <Sidebar toggle={toggle} />
+      <Sidebar toggle={Boolean(toggle)} open={open} handleClick={handleClick} />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Box className="Team">
           <Typography paragraph>

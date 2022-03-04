@@ -5,46 +5,108 @@ import Sidebar from "../SIdebar/Sidebar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-
+import Loader from "../Loader/Loader";
+import { useEffect } from "react";
+import { PureComponent } from "react";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+// const data = [{ name: "Page A", uv: 400, pv: 2400, amt: 2400 },{ name: "Page B", uv: 100, pv: 2400, amt: 2400 },{ name: "Page C", uv: 600, pv: 2400, amt: 2400 },{ name: "Page D", uv: 1400, pv: 2400, amt: 2400 },{ name: "Page E", uv: 800, pv: 2400, amt: 2400 }];
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+];
 export default function Dashboard() {
-  const[toggle,setToggle]=useState(false);
-  const showEvent =()=>{
-    if(toggle!==false){
-      setToggle(false)
+  const [toggle, setToggle] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+  const showEvent = () => {
+    if (toggle !== false) {
+      setToggle(false);
+    } else {
+      setToggle(true);
+      setOpen(false);
     }
-    else{
-      setToggle(true)
-    }
-  }
+  };
+  let [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1500);
+  }, []);
   return (
     <>
       <Navbar toggle={toggle} showEvent={showEvent} />
-      <Box sx={{display:"flex", marginTop:"64px"}}>
-        <Sidebar toggle={toggle} />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Box className="Dashboard">
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-          
-        </Box>
-        
-        </Box>
-        
+      <Box sx={{ display: "flex", marginTop: "64px" }}>
+        <Sidebar toggle={toggle} open={open} handleClick={handleClick} />
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+              <Box className="Dashboard">
+                <BarChart
+                  width={500}
+                  height={300}
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                  barSize={20}
+                >
+                  {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                  <XAxis dataKey="name" scale="point" padding={{ left: 60, right: 20 }} />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="pv" fill="#8884d8" />
+                  <Bar dataKey="uv" fill="#82ca9d" />
+                </BarChart>
+              </Box>
+            </Box>
+          </>
+        )}
       </Box>
-      
     </>
   );
 }
