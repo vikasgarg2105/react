@@ -15,6 +15,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 
 const drawerWidth = 280;
@@ -38,7 +39,13 @@ const navItem = [
     url: "/transaction-history",
   },
   {
-    id: "3",
+    id: "4",
+    menu: "Todo",
+    imgUrl: <FormatListBulletedIcon />,
+    url: "/todo",
+  },
+  {
+    id: "5",
     menu: "Events",
     imgUrl: <AccountBalanceWalletOutlinedIcon />,
     url: "",
