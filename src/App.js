@@ -5,6 +5,7 @@ import Login from "./Components/Login/Login";
 import Team from "./Components/Teammembers/Team";
 import Todo from "./Components/Todo/Todo";
 import TransactionHistory from "./Components/TransactionHistory/TransactionHistory";
+import Filter from "./Components/filter/Gallleryfilter";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/team-members" element={<Team />} />
         <Route path="/transaction-history" element={<TransactionHistory />} />
         <Route path="/todo" element={<Todo />} />
+        <Route path="/filter" element={<Filter />} />
       </Routes>
     </>
   );

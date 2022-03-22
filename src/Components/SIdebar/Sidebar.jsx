@@ -16,6 +16,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
 
 
 const drawerWidth = 280;
@@ -26,23 +27,29 @@ const navItem = [
     imgUrl: <HomeOutlinedIcon />,
     url: "/dashboard",
   },
-  {
-    id: "2",
-    menu: "Invoice",
-    imgUrl: <DescriptionOutlinedIcon />,
-    url: "/team-members",
-  },
-  {
-    id: "3",
-    menu: "Leave",
-    imgUrl: <EventBusyOutlinedIcon />,
-    url: "/transaction-history",
-  },
+  // {
+  //   id: "2",
+  //   menu: "Invoice",
+  //   imgUrl: <DescriptionOutlinedIcon />,
+  //   url: "/team-members",
+  // },
+  // {
+  //   id: "3",
+  //   menu: "Leave",
+  //   imgUrl: <EventBusyOutlinedIcon />,
+  //   url: "/transaction-history",
+  // },
   {
     id: "4",
     menu: "Todo",
     imgUrl: <FormatListBulletedIcon />,
     url: "/todo",
+  },
+  {
+    id: "6",
+    menu: "Gallery filter",
+    imgUrl: <FilterNoneOutlinedIcon />,
+    url: "/filter",
   },
   {
     id: "5",
@@ -104,6 +111,7 @@ export default function Sidebar(props) {
                   <ListItemButton
                     onClick={props.handleClick}
                     sx={{ minWidth: "250px", my: 1 }}
+                    key={val.id}
                   >
                     <ListItemIcon sx={{ minWidth: "50px" }}>
                       <Box
@@ -130,7 +138,7 @@ export default function Sidebar(props) {
                   <Collapse in={props.open} timeout="auto" unmountOnExit>
                     {val.submenu.submenuitem.map((value, index) => (
                       <>
-                        <Box component="div" disablePadding>
+                        <Box component="div" disablePadding key={value.id}>
                           <NavLink
                             to={value.url}
                             className="link"

@@ -88,3 +88,14 @@ a{
   .css-12i7wg6-MuiPaper-root-MuiDrawer-paper::-webkit-scrollbar-thumb:hover {
     background: var(--primary); 
   }
+
+
+  /* todo */
+
+  .task-item .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 9.5px 14px;
+}
+.task-item .css-1k73fus-MuiButtonBase-root-MuiButton-root:hover, .todo .css-1k73fus-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: var(--primary);
+  box-shadow: 0 0 0 0;
+}

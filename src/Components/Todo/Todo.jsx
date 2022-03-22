@@ -7,8 +7,6 @@ import Loader from "../Loader/Loader";
 import { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -18,6 +16,13 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 export default function Todo() {
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = React.useState(false);
+  let [loading, setLoading] = useState(true);
+  const [edit, setEdit] = useState({ Edit: false, editId: "" });
+  const [task, setTask] = useState("");
+  const [taskData, setTaskData] = useState([]);
+  const [check, setCheck] = useState(false);
+  const [editTask, setEditTask] = useState("");
+  const [taskagain, setTaskAgain] = useState(true);
 
   const handleClick = () => {
     setOpen(!open);
@@ -30,37 +35,69 @@ export default function Todo() {
       setOpen(false);
     }
   };
-  let [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setTimeout(() => setLoading(false), 1500);
   }, []);
 
-  const [task, setTask] = useState("");
-
   const handleTask = (e) => {
     setTask(e.target.value);
   };
-  const [taskData, setTaskData] = useState([]);
+
   const addBtn = (e) => {
     e.preventDefault();
-    setTaskData((oldtask) => {
-      return [...oldtask, task];
-    });
-    setTask("");
+    if (!task) {
+    } else {
+      const newInputData = { id: new Date().getTime().toString(), name: task };
+      // console.log(newInputData);
+      setTaskData([...taskData, newInputData]);
+      setTask("");
+    }
   };
-  const[check, setCheck]=useState(false);
-  const checkIt =()=>{
-    setCheck(!check);
-  }
 
-  const Delete =(id)=>{
-    console.log(id);
-    setTaskData((taskData)=>{
-      return taskData.filter((value,index)=>{
-        return index!==id;
-      })
-    })
-  }
+  const checkIt = (id) => {
+    taskData.find((value) => {
+      setCheck(!check);
+    });
+  };
+  const Delete = (index) => {
+    setTaskData((taskData) => {
+      const updatedTask = taskData.filter((value) => {
+        return value.id !== index;
+      });
+      setTaskData(updatedTask);
+    });
+  };
+
+  const editHandle = (Eid,Eval) => {
+    console.log(Eval);
+    setEditTask(Eval.name);
+    console.log(editTask);
+    setEdit({ Edit: !edit.Edit, editId: Eid });
+    console.log(Eid);
+    const getIndex = taskData.findIndex(x=>x.id===Eid);
+    console.log(getIndex);
+    console.log(taskData);
+    taskData[getIndex]={id:Eid ,name:editTask};
+    console.log(taskData);
+    // console.log(editTask);
+  };
+
+  const handleTaskAgain = (e) => {
+    let editTasknew = e.target.value;
+    if (editTasknew) {
+      setTaskAgain(false);
+    }
+    setEditTask(editTasknew);
+    // console.log(edit.editId);
+    // console.log(editTasknew);
+    // console.log(taskData);
+
+    // console.log(edit.editId);
+    
+    // console.log(taskData);
+  };
+  console.log(taskData);
   return (
     <>
       <Navbar toggle={toggle} showEvent={showEvent} />
@@ -74,7 +111,9 @@ export default function Todo() {
               <Box className="todo">
                 <Grid container spacing={2}>
                   <Grid xs={12}>
-                    <Box sx={{textAlign:"center"}}><h2>TODO LIST</h2></Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <h2>TODO LIST</h2>
+                    </Box>
                     <Box
                       sx={{
                         width: "500px",
@@ -93,9 +132,10 @@ export default function Todo() {
                           fullWidth
                           label="Task"
                           id="fullWidth"
-                          sx={{ width: "85%" }}
+                          sx={{ width: "85%", backgroundColor: "var(--white)" }}
                           value={task}
                           onChange={handleTask}
+                          autoComplete="off"
                         />
                         <Button
                           variant="contained"
@@ -111,46 +151,112 @@ export default function Todo() {
                       <Box
                         sx={{ borderBottom: "1px solid #00000030", my: 4 }}
                       ></Box>
-                      {taskData.map((val, index) => {
-                        return (
+                      <Box>
+                        {taskData.length !== 0 ? (
                           <>
-                            <Box
-                            key={index}
-                            id={index}
-                              className="task-item"
-                              sx={{
-                                boxShadow: "0px 2px 8px 0px #00000030",
-                                borderRadius: "8px",
-                                my: 2,
-                              }}
-                            >
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                  alignItems: "center",
-                                  py: 1,
-                                  px: 2,
-                                }}
-                              >
-                                <Box sx={{display:"flex", alignItems:"center"}}>
-                                  <Checkbox onClick={checkIt} />
-                                  <Box sx={{...(check && {textDecoration:"line-through"})}}>{val}</Box>
-                                </Box>
-                                <Box className="icons">
-                                  <EditOutlinedIcon sx={{ mr: 1 }} />
-                                  <DeleteOutlineOutlinedIcon onClick={()=>{
-                                    Delete(index)
-                                  }} />
-                                </Box>
-                              </Box>
-                            </Box>
+                            {taskData.map((val) => {
+                              return (
+                                <>
+                                  <Box
+                                    key={val.id}
+                                    id={val.id}
+                                    className="task-item"
+                                    sx={{
+                                      boxShadow: "0px 2px 8px 0px #00000030",
+                                      borderRadius: "8px",
+                                      backgroundColor: "var(--white)",
+                                      my: 2,
+                                    }}
+                                  >
+                                    <Box
+                                      sx={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        py: 1,
+                                        px: 2,
+                                      }}
+                                    >
+                                      {edit.editId == val.id ? (
+                                        <>
+                                          <TextField
+                                            fullWidth
+                                            label="Task"
+                                            id="fullWidth"
+                                            sx={{
+                                              width: "85%",
+                                              backgroundColor: "var(--white)",
+                                            }}
+                                            value={
+                                              taskagain ? val.name : editTask
+                                            }
+                                            onChange={handleTaskAgain}
+                                          />
+                                          <Button
+                                            variant="contained"
+                                            type="submit"
+                                            sx={{
+                                              backgroundColor: "var(--primary)",
+                                              p: 1,
+                                            }}
+                                            onClick={setEdit}
+                                          >
+                                            Done
+                                          </Button>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <Box
+                                            sx={{
+                                              display: "flex",
+                                              alignItems: "center",
+                                            }}
+                                          >
+                                            <Checkbox
+                                              onClick={() => {
+                                                checkIt(val.id);
+                                              }}
+                                            />
+                                            <Box
+                                              sx={{
+                                                ...(check && {
+                                                  textDecoration:
+                                                    "line-through",
+                                                }),
+                                              }}
+                                            >
+                                              {val.name}
+                                            </Box>
+                                          </Box>
+                                          <Box className="icons">
+                                            <EditOutlinedIcon
+                                              sx={{ mr: 1 }}
+                                              onClick={() => {
+                                                editHandle(val.id, val);
+                                              }}
+                                            />
+                                            <DeleteOutlineOutlinedIcon
+                                              onClick={() => {
+                                                Delete(val.id);
+                                              }}
+                                            />
+                                          </Box>
+                                        </>
+                                      )}
+                                    </Box>
+                                  </Box>
+                                </>
+                              );
+                            })}
                           </>
-                        );
-                      })}
+                        ) : (
+                          <Box sx={{ textAlign: "center" }}>
+                            <p>No task is here</p>
+                          </Box>
+                        )}
+                      </Box>
                     </Box>
                   </Grid>
-                  <Grid xs={4}></Grid>
                 </Grid>
               </Box>
             </Box>
