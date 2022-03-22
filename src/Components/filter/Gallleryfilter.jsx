@@ -50,6 +50,7 @@ export default function Gallleryfilter() {
                       m: 1,
                     }}
                   >
+                    
                     ALl
                   </Button>
                   <Button
